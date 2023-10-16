@@ -1,0 +1,77 @@
+<div class="container">
+    <div>
+        <h2 class="heading">SignUp</h2>
+        <div class="formStyle">
+
+            <form [formGroup]="SignUpForm" (ngSubmit)="SignUp(SignUpForm.value)">
+
+                <div class="card flex justify-content-center form-group">
+                    <input pInputText id="Name" class="form-control" [class.is-invalid]="Names.invalid && Names.touched"
+                        formControlName="Name" placeholder="Name" />
+                    <small class="text-danger form-control" [class.d-none]="Names.valid || Names.untouched">Name is
+                        required</small>
+                </div>
+
+                <div class="card flex justify-content-center form-group">
+                    <input class="form-control" pInputText id="username"
+                        [class.is-invalid]="UserNames.invalid && UserNames.touched" formControlName="UserName"
+                        placeholder="UserName" />
+                    <small class="text-danger form-control"
+                        [class.d-none]="UserNames.valid || UserNames.untouched">Username is required</small>
+                </div>
+
+                <div class="card flex justify-content-center form-group">
+                    <input type="email" class="form-control" formControlName="Email" placeholder="Email"
+                        [class.is-invalid]="email.invalid && email.touched">
+                    <div *ngIf="email.invalid && email.touched">
+                        <small *ngIf="email.errors?.['required']" class="text-danger">Email is required</small>
+                        <small *ngIf="email.errors?.['email']" class="text-danger">Enter a Valid Email</small>
+                    </div>
+                </div>
+
+                <div class="card flex justify-content-center form-group">
+                    <input type="tel" class="form-control" formControlName="PhoneNumber" placeholder="Phone Number"
+                        [class.is-invalid]="phone.invalid && phone.touched">
+                    <small [class.d-none]="phone.valid || phone.untouched">Phone Number is required</small>
+                </div>
+
+                <div class="card flex justify-content-center form-group">
+                    <input type="file" class="form-control" formControlName="Profile"
+                        [class.is-invalid]="profile.invalid && profile.touched" accept="images/*"
+                        (change)="onFileChange($event)">
+                    <small [class.d-none]="profile.valid || profile.untouched">Profile is required</small>
+                </div>
+
+                <div class="card flex justify-content-center form-group">
+                    <image-cropper #cropper [imageChangedEvent]="imgChangeEvt" [maintainAspectRatio]="true"
+                        [aspectRatio]="4 / 4" [resizeToWidth]="300" format="png" (imageCropped)="cropImg($event)"
+                        (imageLoaded)="imgLoad()" (cropperReady)="initCropper()" (loadImageFailed)="imgFailed()">
+                    </image-cropper>
+                </div>
+
+                <div class="card flex justify-content-center form-group">
+                    <input type="password" formControlName="Password" placeholder="Password"
+                        [class.is-invalid]="password.invalid && password.touched" class="form-control">
+                </div>
+
+                <div *ngIf="password.invalid && password.touched">
+                    <small *ngIf="password.errors?.['required']" class="text-danger">Password is required</small>
+                    <small *ngIf="password.errors?.['minlength']" class="text-danger">Password must be of length
+                        8</small>
+                    <small *ngIf="password.errors?.['pattern']" class="text-danger">Password must be strong</small>
+                </div>
+
+                <div class="card flex justify-content-center form-group">
+                    <span>
+                   Password must be same     <input type="password" class="form-control" formControlName="ConfirmPassword"
+                            [class.is-invalid]="SignUpForm.errors?.['misMatch']" placeholder="Confirm Password">
+                    </span>
+                    <small *ngIf="SignUpForm.errors?.['misMatch']" class="text-danger"></small>
+                </div>
+
+                <button class="btn btn-primary ms-2 mt-3">SignUp</button>
+
+            </form>
+        </div>
+    </div>
+</div>

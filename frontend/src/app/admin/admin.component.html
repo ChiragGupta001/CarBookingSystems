@@ -1,0 +1,106 @@
+<div class="container">
+    <div class="card">
+        <div class="row">
+            <div class="col-9">
+                <h3 class="ps-4 m-4">Cars</h3>
+            </div>
+            <div class="col-3">
+
+                <button type="button" class="btn btn-primary m-4 addbtn" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">
+                    Add Car
+                </button>
+
+                <button type="button" class="btn btn-primary me-2 addbtn" (click)="GetBookCars()">
+                    Book Cars
+                </button>
+            </div>
+        </div>
+
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Car</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form [formGroup]="AddForm" (ngSubmit)="AddCar(AddForm.value)">
+                        <div class="modal-body">
+                            <table>
+                                <tr>
+                                    <td> <label for="model">Model</label></td>
+                                    <td><input pInputText type="text"
+                                            [class.is-invalid]="model.invalid && model.touched" formControlName="Model"
+                                            id="model" placeholder="Enter Car Model"></td>
+                                    <td><small class="text-danger" [class.d-none]="model.valid || model.untouched">Model
+                                            is required</small></td>
+                                </tr>
+                                <tr>
+                                    <td> <label for="brand">Brand</label></td>
+                                    <td><input pInputText type="text"
+                                            [class.is-invalid]="brand.invalid && brand.touched" formControlName="Brand"
+                                            id="brand" placeholder="Enter Car Brand"></td>
+                                    <td><small class="text-danger" [class.d-none]="brand.valid || brand.untouched">Brand
+                                            is required</small></td>
+                                </tr>
+                                <tr>
+                                    <td> <label for="description">Description</label></td>
+                                    <td><input pInputText type="text"
+                                            [class.is-invalid]="description.invalid && description.touched"
+                                            formControlName="Description" id="description"
+                                            placeholder="Enter Car Description"></td>
+                                    <td><small class="text-danger"
+                                            [class.d-none]="description.valid || description.untouched">please describe
+                                            the car</small></td>
+                                </tr>
+                                <tr>
+                                    <td> <label for="price">Price</label></td>
+                                    <td><p-inputNumber [class.is-invalid]="price.invalid && price.touched"
+                                            formControlName="PricePerHour" inputId="price" mode="currency" currency="INR"
+                                            locale="en-IN"></p-inputNumber></td>
+                                    <td><small class="text-danger" [class.d-none]="price.valid || price.untouched">Enter
+                                            price pre hour</small></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                (click)="Back()">Close</button>
+                            <button type="submit" class="btn btn-primary" >Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <p-table [value]="products" [tableStyle]="{'min-width': '60rem'}" class="tabledesign">
+
+            <ng-template pTemplate="header">
+                <tr class="header">
+                    <th pSortableColumn="carId" style="width:22%" class="p-3">Id <p-sortIcon field="carId"></p-sortIcon>
+                    <th pSortableColumn="model" style="width:12%" class="p-3">Model <p-sortIcon
+                            field="model"></p-sortIcon></th>
+                    <th pSortableColumn="brand" style="width:12%" class="p-3">Brand <p-sortIcon
+                            field="brand"></p-sortIcon></th>
+                    <th pSortableColumn="description" style="width:20%" class="p-3">Description <p-sortIcon
+                            field="description"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="pricePerHour" style="width:12%">Price/hr <p-sortIcon
+                            field="pricePerHour"></p-sortIcon></th>
+                </tr>
+            </ng-template>
+
+            <ng-template class="body" pTemplate="body" let-product>
+                <tr>
+                    <td>{{product.carId}}</td>
+                    <td>{{product.model}}</td>
+                    <td>{{product.brand}}</td>
+                    <td>{{product.description}}</td>
+                    <td>{{product.pricePerHour | currency: 'INR'}}</td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+    </div>
+</div>

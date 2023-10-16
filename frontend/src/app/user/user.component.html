@@ -1,0 +1,72 @@
+<p-toast></p-toast>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form [formGroup]="CarForm" (ngSubmit)="BookCar(CarForm.value)">
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                            <td> <label for="from">From Date</label></td>
+                            <td> <input type="datetime-local" [class.is-invalid]="fromDate.invalid && fromDate.touched"
+                                    formControlName="From" id="from"></td>
+                            <td> <small class="text-danger" [class.d-none]="fromDate.valid || fromDate.untouched">Enter From Date</small></td>
+                        </tr>
+                        <tr>
+                            <td> <label for="to">To Date</label></td>
+                            <td><input type="datetime-local" [class.is-invalid]="toDate.invalid && toDate.touched"
+                                    formControlName="To" id="to" (change)="getTotalPrice(CarForm.value)"></td>
+                            <td><small class="text-danger" [class.d-none]="toDate.valid || toDate.untouched">Enter To Date </small></td>
+                        </tr>
+                        <tr>
+                            <td> Total Rent</td>
+                            <td> {{totalRent}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" >Book</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        <div class="row">
+            <span class="p-2 h2 col-10">Cars</span>
+            <div class="col-2 p-2"><button type="button" class="btn btn-primary" (click)="GetBookCar()">Booked Cars</button></div>
+        </div>
+    <p-table [value]="products" [tableStyle]="{'min-width': '60rem'}" class="tabledesign">
+        <ng-template pTemplate="header">
+            <tr class="header">
+                <!-- <th pSortableColumn="carId" style="width:22%" class="p-3">Id <p-sortIcon field="carId"></p-sortIcon> -->
+                <th pSortableColumn="model" style="width:20%">Model <p-sortIcon field="model"></p-sortIcon></th>
+                <th pSortableColumn="brand" style="width:20%">Brand <p-sortIcon field="brand"></p-sortIcon></th>
+                <th pSortableColumn="description" style="width:20%">Description <p-sortIcon
+                        field="description"></p-sortIcon>
+                </th>
+                <th pSortableColumn="pricePerHour" style="width:20%">Price/hr <p-sortIcon
+                        field="pricePerHour"></p-sortIcon></th>
+                <th style="width: 20%">Action</th>
+            </tr>
+        </ng-template>
+
+        <ng-template class="body" pTemplate="body" let-product>
+            <tr>
+                <!-- <td>{{product.carId}}</td> -->
+                <td>{{product.model}}</td>
+                <td>{{product.brand}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.pricePerHour | currency: 'INR'}}</td>
+                <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="CarBook(product)">Book Car</button></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

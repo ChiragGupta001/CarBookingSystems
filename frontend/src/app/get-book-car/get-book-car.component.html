@@ -1,0 +1,33 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-11 p-2"><h3>Booked Cars</h3></div>
+        <div class="col-1 p-2"><button class="btn btn-primary" (click)="goBack()">Back</button></div>
+    </div>
+<p-table [value]="products" [tableStyle]="{'min-width': '60rem'}" class="tabledesign">
+    <ng-template pTemplate="header">
+        <tr class="header">
+            <th pSortableColumn="username" style="width:12%" class="p-3">User Name <p-sortIcon field="username"></p-sortIcon>
+            <th pSortableColumn="model" style="width:12%">Model <p-sortIcon
+                    field="model"></p-sortIcon></th>
+            <th pSortableColumn="to" style="width:18%">To <p-sortIcon
+                    field="to"></p-sortIcon></th>
+            <th pSortableColumn="from" style="width:18%">From <p-sortIcon field="from"></p-sortIcon>
+            </th>
+            <th pSortableColumn="pricePerHour" style="width:12%">Price/hr <p-sortIcon
+                    field="pricePerHour"></p-sortIcon></th>
+            <th pSortableColumn="totalRent" style="width:15%">TotalRent<p-sortIcon field="totalRent"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template class="body" pTemplate="body" let-product>
+        <tr>
+            <td class="p-3">{{product.username}}</td>
+            <td>{{product.model}}</td>
+            <td>{{product.to}}</td>
+            <td>{{product.from}}</td>
+            <td>{{product.pricePerHour | currency: 'INR'}}</td>
+            <td>{{product.totalRent}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>

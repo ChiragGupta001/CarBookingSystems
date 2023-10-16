@@ -1,0 +1,9 @@
+th,td{
+    border: 1px solid black;
+    text-align: center;
+    justify-content: center;
+}
+
+.addbtn{
+    width: fit-content;
+}

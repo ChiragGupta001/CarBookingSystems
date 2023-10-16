@@ -1,0 +1,33 @@
+<div class="container">
+    <div>
+        <h2 class="heading">Login</h2>
+        <div class="formStyle">
+            <form [formGroup]="LoginForm" (ngSubmit)="login(LoginForm.value)">
+
+                <div class="card flex justify-content-center form-group">
+                    <input class="form-control" pInputText id="username"
+                        [class.is-invalid]="UserNames.invalid && UserNames.touched" formControlName="UserName"
+                        placeholder="UserName" />
+                    <small class="text-danger form-control"
+                        [class.d-none]="UserNames.valid || UserNames.untouched">Username is required</small>
+                </div>
+
+                <div class="card flex justify-content-center form-group">
+                    <input type="password" formControlName="Password" placeholder="Password"
+                        [class.is-invalid]="password.invalid && password.touched" class="form-control">
+                </div>
+                <div *ngIf="password.invalid && password.touched">
+                    <small *ngIf="password.errors?.['required']" class="text-danger">Password is required</small>
+                    <small *ngIf="password.errors?.['minlength']" class="text-danger">Password must be of length
+                        8</small>
+                    <small *ngIf="password.errors?.['pattern']" class="text-danger">Password must be strong</small>
+                </div>
+                <p-checkbox formControlName="isRemember" inputId="ny"></p-checkbox>
+                <label for="ny">Remember me</label>
+                <div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
